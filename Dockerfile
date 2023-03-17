@@ -8,7 +8,9 @@ RUN go get -v
 
 RUN GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -o prometheus-status-pusher main.go
 
-FROM scratch
+FROM alpine
+
+RUN apk add ca-certificates
 
 COPY --from=builder /app/prometheus-status-pusher /prometheus-status-pusher
 
